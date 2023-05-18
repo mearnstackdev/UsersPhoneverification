@@ -1,0 +1,32 @@
+service: phone-number-verification
+
+frameworkVersion: "3"
+
+custom:
+  myStage: ${opt:stage, self:provider.stage}
+  settings: ${file(./${opt:stage, 'dev'}.json):CREDS}  
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  memorySize: 2048
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'eu-central-1'}
+
+functions:
+  sendOtp:
+    handler: src/handlers/userVerification/sendSMS.sendOtp
+    events:
+      - http:
+          method: POST
+          path: /send-otp
+          cors: true
+  verifyOtp:
+    handler: src/handlers/userVerification/verifyOtp.verifyOtp
+    events:
+      - http:
+          path: /verify-otp
+          method: POST
+          cors: true   
+  
+
