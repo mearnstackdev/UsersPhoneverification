@@ -1,7 +1,1 @@
-DYNAMODB_TABLE=test{
-    "CREDS": {
-        "accessKeyId": "abc",
-        "secretAccessKey" : "abc",
-         "PlatformApplicationArn":"abc"
-    }
-}
+//
